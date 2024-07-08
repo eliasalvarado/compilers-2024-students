@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <string>
 #include "y.tab.h"
+extern void yyerror(const char *s);
 %}
 
 %%
@@ -14,8 +15,9 @@
 "/"                     { return '/'; }
 "="                     { return '='; }
 ":"                     { return ':'; }
-[ \t]                   ;  // skip whitespace
-.|\n                    ; /* ignore all the rest */
+[ \t]                  ;  // skip whitespace
+\n                      ;  // skip newlines
+.                       yyerror("Invalid character");
 
 %%
 
